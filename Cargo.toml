@@ -1,0 +1,19 @@
+[package]
+name = "cryptraits"
+license = "MIT"
+version = "0.1.0"
+edition = "2021"
+authors = ["Oleksandr Yermakov <olexander.yermakov@gmail.com>"]
+categories = ["cryptography"]
+keywords = ["crypto", "cryptography"]
+description = "Cryptographic primitives traits collection."
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand_core = { version = "0.6.3", features = [] }
+zeroize = "1.4.3"
+
+[features]
+default = ["std"]
+std = ["rand_core/std"]
