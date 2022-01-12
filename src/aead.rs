@@ -20,8 +20,8 @@ pub trait Aead {
     fn new(key: &[u8]) -> Self;
 
     /// Encrypts `data` with `nonce`.
-    fn encrypt(&self, nonce: &[u8], data: &[u8]) -> Result<Vec<u8>, Self::E>;
+    fn encrypt(&self, nonce: &[u8], data: &[u8], aad: Option<&[u8]>) -> Result<Vec<u8>, Self::E>;
 
     /// Decrypts `data` with `nonce`.
-    fn decrypt(&self, nonce: &[u8], data: &[u8]) -> Result<Vec<u8>, Self::E>;
+    fn decrypt(&self, nonce: &[u8], data: &[u8], aad: Option<&[u8]>) -> Result<Vec<u8>, Self::E>;
 }
