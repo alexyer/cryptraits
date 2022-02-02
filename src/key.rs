@@ -1,5 +1,8 @@
 //! Key management related traits.
 
+#[cfg(feature = "std")]
+use std::borrow::Cow;
+
 #[cfg(not(feature = "std"))]
 use alloc::fmt::Debug;
 use rand_core::{CryptoRng, RngCore};
@@ -7,7 +10,12 @@ use rand_core::{CryptoRng, RngCore};
 #[cfg(feature = "std")]
 use std::fmt::Debug;
 
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+
 use zeroize::Zeroize;
+
+use crate::error::Error;
 
 /// Trait represents a public key.
 pub trait PublicKey: Debug + Copy + PartialEq {}
@@ -15,6 +23,9 @@ pub trait PublicKey: Debug + Copy + PartialEq {}
 /// Trait represents a secret key.
 pub trait SecretKey: Zeroize + Debug {
     type PK: PublicKey;
+
+    /// Generate an "unbiased" `SecretKey`;
+    fn generate() -> Self;
 
     /// Generates an "unbiased" `SecretKey` directly from a user
     /// suplied `csprng` uniformly.
@@ -33,6 +44,9 @@ pub trait SharedSecretKey {}
 pub trait KeyPair: Zeroize {
     type SK: SecretKey;
 
+    /// Generate an "unbiased" `KeyPair`.
+    fn generate() -> Self;
+
     /// Generates an "unbiased" `KeyPair` directly from a user
     /// suplied `csprng` uniformly.
     fn generate_with<R>(csprng: R) -> Self
@@ -47,4 +61,21 @@ pub trait KeyPair: Zeroize {
 
     /// Get a `SecretKey` of `KeyPair`.
     fn secret(&self) -> &Self::SK;
+}
+
+/// Generate and construct a value with mnemonic phrase and optional password.
+pub trait WithPhrase {
+    type E: Error;
+
+    fn generate_with_phrase(word_count: usize, password: Option<&str>) -> Result<Self, Self::E>
+    where
+        Self: Sized;
+
+    /// Construct a value from mnemonic phrase and optional password.
+    fn from_phrase<'a, S: Into<Cow<'a, str>>>(
+        s: S,
+        password: Option<&str>,
+    ) -> Result<Self, Self::E>
+    where
+        Self: Sized;
 }
