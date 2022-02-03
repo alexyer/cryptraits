@@ -67,7 +67,13 @@ pub trait KeyPair: Zeroize {
 pub trait WithPhrase {
     type E: Error;
 
-    fn generate_with_phrase(word_count: usize, password: Option<&str>) -> Result<Self, Self::E>
+    /// Generate a new value of `word_count` words and optional password.
+    ///
+    /// Returns tuple of generated value and a phrase or error.
+    fn generate_with_phrase(
+        word_count: usize,
+        password: Option<&str>,
+    ) -> Result<(Self, String), Self::E>
     where
         Self: Sized;
 
