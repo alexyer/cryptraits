@@ -84,4 +84,16 @@ pub trait WithPhrase {
     ) -> Result<Self, Self::E>
     where
         Self: Sized;
+
+    /// Generate a new value of `word_count` words and optional password witn `rng` PRF.
+    ///
+    /// Returns tuple of generated value and a phrase or error.
+    fn generate_in_with<R>(
+        rng: &mut R,
+        word_count: usize,
+        password: Option<&str>,
+    ) -> Result<(Self, String), Self::E>
+    where
+        Self: Sized,
+        R: RngCore + CryptoRng;
 }
