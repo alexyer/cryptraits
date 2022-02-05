@@ -5,11 +5,12 @@ use alloc::vec::Vec;
 
 #[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
+use zeroize::Zeroize;
 
 use crate::error::Error;
 
 /// Trait represents AEAD cipher.
-pub trait Aead {
+pub trait Aead: Zeroize {
     /// AEAD Error type.
     type E: Error;
 

@@ -2,11 +2,12 @@
 
 #[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
+use zeroize::Zeroize;
 
 use crate::error::Error;
 
 /// Trait represents Key Derivation Function.
-pub trait Kdf {
+pub trait Kdf: Zeroize {
     type E: Error;
 
     /// Creates a new KDF instance.

@@ -1,8 +1,10 @@
 //! Hash-based Message Authentication Code (HMAC).
+use zeroize::Zeroize;
+
 use crate::error::Error;
 
 /// Trait represents HMAC.
-pub trait Hmac {
+pub trait Hmac: Zeroize {
     /// HMAC Error type.
     type E: Error;
 
