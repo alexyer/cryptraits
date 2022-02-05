@@ -18,7 +18,7 @@ use zeroize::Zeroize;
 use crate::error::Error;
 
 /// Trait represents a public key.
-pub trait PublicKey: Debug + Copy + PartialEq {}
+pub trait PublicKey: Debug + Copy + PartialEq + Zeroize {}
 
 /// Trait represents a secret key.
 pub trait SecretKey: Zeroize + Debug {
