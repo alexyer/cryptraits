@@ -97,3 +97,16 @@ pub trait WithPhrase {
         Self: Sized,
         R: RngCore + CryptoRng;
 }
+
+/// Perform a blinding operation on keys.
+pub trait Blind {
+    type E: Error;
+
+    /// Perform a blinding operation on the key with the given blinding factor.
+    fn blind(&mut self, blinding_factor: &[u8]) -> Result<(), Self::E>;
+
+    /// Perform a blinding operation on the key with the given blinding factor.
+    fn to_blind(&self, blinding_factor: &[u8]) -> Result<Self, Self::E>
+    where
+        Self: Sized;
+}
