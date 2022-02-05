@@ -6,6 +6,7 @@ extern crate alloc;
 pub mod aead;
 pub mod convert;
 pub mod error;
+pub mod hash;
 pub mod hmac;
 pub mod kdf;
 pub mod key;

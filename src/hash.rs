@@ -1,5 +1,7 @@
 //! Hash.
 
+use zeroize::Zeroize;
+
 /// Trait represents Hash.
 pub trait Hash: Zeroize {
     /// Create new hasher.
