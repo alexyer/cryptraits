@@ -11,3 +11,4 @@ pub mod kdf;
 pub mod key;
 pub mod key_exchange;
 pub mod signature;
+pub mod stream_cipher;
