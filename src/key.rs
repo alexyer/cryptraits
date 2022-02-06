@@ -18,10 +18,10 @@ use zeroize::Zeroize;
 use crate::error::Error;
 
 /// Trait represents a public key.
-pub trait PublicKey: Debug + Copy + PartialEq + Zeroize {}
+pub trait PublicKey: Debug + Clone + Copy + PartialEq + Zeroize {}
 
 /// Trait represents a secret key.
-pub trait SecretKey: Zeroize + Debug {
+pub trait SecretKey: Clone + Zeroize + Debug {
     type PK: PublicKey;
 
     /// Generate an "unbiased" `SecretKey`;
@@ -41,7 +41,7 @@ pub trait SecretKey: Zeroize + Debug {
 pub trait SharedSecretKey {}
 
 /// Trait represents a keypair.
-pub trait KeyPair: Zeroize {
+pub trait KeyPair: Clone + Zeroize {
     type SK: SecretKey;
 
     /// Generate an "unbiased" `KeyPair`.
