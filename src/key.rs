@@ -24,15 +24,6 @@ pub trait PublicKey: Debug + Clone + Copy + PartialEq + Zeroize {}
 pub trait SecretKey: Clone + Zeroize + Debug {
     type PK: PublicKey;
 
-    /// Generate an "unbiased" `SecretKey`;
-    fn generate() -> Self;
-
-    /// Generates an "unbiased" `SecretKey` directly from a user
-    /// suplied `csprng` uniformly.
-    fn generate_with<R: CryptoRng + RngCore>(csprng: R) -> Self
-    where
-        Self: Sized;
-
     /// Derives the `PublicKey` corresponding to this `SecretKey`.
     fn to_public(&self) -> Self::PK;
 }
@@ -44,15 +35,6 @@ pub trait SharedSecretKey {}
 pub trait KeyPair: Clone + Zeroize {
     type SK: SecretKey;
 
-    /// Generate an "unbiased" `KeyPair`.
-    fn generate() -> Self;
-
-    /// Generates an "unbiased" `KeyPair` directly from a user
-    /// suplied `csprng` uniformly.
-    fn generate_with<R>(csprng: R) -> Self
-    where
-        R: CryptoRng + RngCore;
-
     /// Get a `PublicKey` of `KeyPair`.
     fn public(&self) -> &<Self::SK as SecretKey>::PK;
 
@@ -61,6 +43,17 @@ pub trait KeyPair: Clone + Zeroize {
 
     /// Get a `SecretKey` of `KeyPair`.
     fn secret(&self) -> &Self::SK;
+}
+
+pub trait Generate {
+    /// Generate an "unbiased" `SecretKey`;
+    fn generate() -> Self;
+
+    /// Generates an "unbiased" `SecretKey` directly from a user
+    /// suplied `csprng` uniformly.
+    fn generate_with<R: CryptoRng + RngCore>(csprng: R) -> Self
+    where
+        Self: Sized;
 }
 
 /// Generate and construct a value with mnemonic phrase and optional password.
