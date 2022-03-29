@@ -4,6 +4,12 @@
 use std::borrow::Cow;
 
 #[cfg(not(feature = "std"))]
+use alloc::fmt::Display;
+
+#[cfg(feature = "std")]
+use std::fmt::Display;
+
+#[cfg(not(feature = "std"))]
 use alloc::fmt::Debug;
 use rand_core::{CryptoRng, RngCore};
 
@@ -18,7 +24,7 @@ use zeroize::Zeroize;
 use crate::error::Error;
 
 /// Trait represents a public key.
-pub trait PublicKey: Debug + Clone + Copy + PartialEq + Zeroize {}
+pub trait PublicKey: Debug + Display + Clone + Copy + PartialEq + Zeroize {}
 
 /// Trait represents a secret key.
 pub trait SecretKey: Clone + Zeroize + Debug {
