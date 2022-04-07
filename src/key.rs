@@ -35,7 +35,7 @@ pub trait SecretKey: Clone + Zeroize + Debug {
 }
 
 /// Trait represents a shared secret key (e.g. obtained via DH exchange).
-pub trait SharedSecretKey: Clone + Zeroize {}
+pub trait SharedSecretKey: Clone + Zeroize + Debug {}
 
 /// Trait represents a keypair.
 pub trait KeyPair: Clone + Zeroize {
