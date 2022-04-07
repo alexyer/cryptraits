@@ -1,9 +1,11 @@
 //! Key exchange traits.
 
+use zeroize::Zeroize;
+
 use super::key::{PublicKey, SharedSecretKey};
 
 /// Diffie-Hellman key exchange.
-pub trait DiffieHellman {
+pub trait DiffieHellman: Zeroize {
     type SSK: SharedSecretKey;
     type PK: PublicKey;
 
