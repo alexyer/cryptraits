@@ -24,7 +24,10 @@ use zeroize::Zeroize;
 use crate::error::Error;
 
 /// Trait represents a public key.
-pub trait PublicKey: Debug + Display + Clone + Copy + PartialEq + Zeroize {}
+pub trait PublicKey: Debug + Display + Clone + Copy + PartialEq + Zeroize {
+    /// Returns a byte slice of `PublicKey`.
+    fn as_bytes(&self) -> &[u8];
+}
 
 /// Trait represents a secret key.
 pub trait SecretKey: Clone + Zeroize + Debug {
