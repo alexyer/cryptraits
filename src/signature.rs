@@ -7,7 +7,10 @@ use crate::error::Error;
 
 use super::convert::{FromBytes, ToVec};
 
-pub trait Signature: FromBytes + ToVec + Copy + Clone + PartialEq {}
+pub trait Signature: FromBytes + ToVec + Copy + Clone + PartialEq {
+    /// Returns a byte slice of `Signature`.
+    fn as_bytes(&self) -> &[u8];
+}
 
 /// Sign a message.
 pub trait Sign {
