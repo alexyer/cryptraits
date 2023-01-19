@@ -100,6 +100,18 @@ pub trait WithPhrase {
         R: RngCore + CryptoRng;
 }
 
+/// Construct a value from user-provided entropy.
+pub trait FromEntropy {
+    type E: Error;
+
+    /// Construct a value from user-provided entropy.
+    ///
+    /// Returns a value from entropy or error.
+    fn from_entropy(entropy: &[u8]) -> Result<Self, Self::E>
+    where
+        Self: Sized;
+}
+
 /// Perform a blinding operation on keys.
 pub trait Blind {
     type E: Error;
